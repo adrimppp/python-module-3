@@ -1,29 +1,35 @@
 import math
-import sys
 
-def distance(coord_tuple_1:tuple, coord_tuple_2:tuple) -> float:
+
+def distance(coord_tuple_1: tuple, coord_tuple_2: tuple) -> float:
     x_1, y_1, z_1 = coord_tuple_1
     x_2, y_2, z_2 = coord_tuple_2
-    d = math.sqrt((x_2 - x_1) * (x_2 - x_1) + (y_2 - y_1) * (y_2 - y_1) + (z_2 - z_1) * (z_2 - z_1))
-    print(f"Distance between {coord_tuple_1} and {coord_tuple_2}: {d}")
+    d = math.sqrt((x_2 - x_1) * (x_2 - x_1) + (y_2 - y_1)
+                  * (y_2 - y_1) + (z_2 - z_1) * (z_2 - z_1))
+    print(f"Distance between {coord_tuple_1} "
+          f"and {coord_tuple_2}: {d}")
     return sum(coord_tuple_1)
 
-def get_coordinate_from_str(coordinates: str):
-    splitted_coord = coordinates.split(',')
-    i = 0
-    while (i < len(splitted_coord)):
-        try:
-            splitted_coord[i] = int(splitted_coord[i])
-        except:
-            print(f"Error parsing coordinates: invalid literal for int() with base 10: \'{splitted_coord[i]}\'")
-            return
-        i += 1
-    return tuple(splitted_coord)
 
-def coordinate_game(coordinate:str):
+def get_coordinate_from_str(coordinates: str):
+    split_coord = coordinates.split(',')
+    i = 0
+    while i < len(split_coord):
+        try:
+            split_coord[i] = int(split_coord[i])
+        except ValueError:
+            print(f"Error parsing coordinates: invalid literal for int()"
+                  f" with base 10: \'{split_coord[i]}\'")
+            return None
+        i += 1
+    return tuple(split_coord)
+
+
+def coordinate_game(coordinate: str):
     tuple_coords = get_coordinate_from_str(coordinate)
-    if (tuple_coords != None):
+    if tuple_coords is not None:
         print(f"Parsed position: {tuple_coords}")
+
 
 coord_0 = "0,0,0"
 tuple_0 = get_coordinate_from_str(coord_0)
@@ -35,4 +41,3 @@ tuple_1 = get_coordinate_from_str(coord_1)
 print(f"Parsing invalid coordinates: \"{coord_2}\"")
 coordinate_game(coord_2)
 distance(tuple_0, tuple_1)
-
